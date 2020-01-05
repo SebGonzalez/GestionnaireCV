@@ -41,6 +41,7 @@ public class Activity implements Serializable {
 	 */
 	public Activity() {
 		super();
+		nature = ActivityType.EXPERIENCE;
 	}
 	
 	public Activity(int year, ActivityType nature, String title, String description, String website, Person owner) {

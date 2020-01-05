@@ -29,7 +29,7 @@
 						<p:message for="name" />
 
 						<p:outputLabel for="firstname" value="FirstName : " />
-						<p:inputText id="firstname" required="true">
+						<p:inputText id="firstname" value="#{p.firstName}" required="true">
 							<f:validateLength minimum="2" maximum="5" />
 							<p:clientValidator />
 						</p:inputText>

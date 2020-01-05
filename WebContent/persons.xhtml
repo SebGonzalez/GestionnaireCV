@@ -9,7 +9,7 @@
 <ui:composition template="/template/mylayout.xhtml">
 	<ui:define name="content">
 		<f:view>
-			<h1>Liste des personnes #{gestionnairec.getAllPersons().size()}</h1>
+			<h1>Liste des personnes (#{gestionnairec.getAllPersons().size()})</h1>
 
 			<h:form id="form">
 				<p:dataTable var="person" value="#{gestionnairec.lazyModel}" lazy="true" rows="100" paginator="true"

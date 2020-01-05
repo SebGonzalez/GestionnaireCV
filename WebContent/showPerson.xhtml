@@ -113,11 +113,14 @@
 								<h:outputText value="#{a.nature}" />
 							</f:facet>
 							<f:facet name="input">
-								<p:inputText value="#{a.nature}" style="width:100%" />
+								<h:selectOneMenu value="#{a.nature}" style="width:100%">
+									<f:selectItems value="#{gestionnairec.natures}" var="nature"
+										itemLabel="#{nature}" itemValue="#{nature}" />
+								</h:selectOneMenu>
 							</f:facet>
 						</p:cellEditor>
 					</p:column>
-					<p:column headerText="Nature">
+					<p:column headerText="Description">
 						<p:cellEditor>
 							<f:facet name="output">
 								<h:outputText value="#{a.description}" />
@@ -153,29 +156,75 @@
 					modal="true" showEffect="fade" hideEffect="fade" resizable="false">
 					<p:outputPanel id="activityDetail" style="text-align:center;">
 
-						<p:panelGrid  columns="2" columnClasses="label,value">
-						<h:outputText value="Titre :" />
-						<h:outputText value="#{gestionnairec.selectedActivity.title}" />
+						<p:panelGrid columns="2" columnClasses="label,value">
+							<h:outputText value="Titre :" />
+							<h:outputText value="#{gestionnairec.selectedActivity.title}" />
 
-						<h:outputText value="Année :" />
-						<h:outputText value="#{gestionnairec.selectedActivity.year}" />
+							<h:outputText value="Année :" />
+							<h:outputText value="#{gestionnairec.selectedActivity.year}" />
 
-						<h:outputText value="Nature :" />
-						<h:outputText value="#{gestionnairec.selectedActivity.nature}" />
+							<h:outputText value="Nature :" />
+							<h:outputText value="#{gestionnairec.selectedActivity.nature}" />
 
-						<h:outputText value="Description :" />
-						<h:outputText
-							value="#{gestionnairec.selectedActivity.description}" />
+							<h:outputText value="Description :" />
+							<h:outputText
+								value="#{gestionnairec.selectedActivity.description}" />
 
-						<h:outputText value="Site web :" />
-						<h:outputText value="#{gestionnairec.selectedActivity.website}" />
+							<h:outputText value="Site web :" />
+							<h:outputText value="#{gestionnairec.selectedActivity.website}" />
 
-						<h:outputText value="Personne :" />
-						<h:outputText value="#{gestionnairec.selectedActivity.owner.name}" />
+							<h:outputText value="Personne :" />
+							<h:outputText
+								value="#{gestionnairec.selectedActivity.owner.name}" />
 						</p:panelGrid>
 
 					</p:outputPanel>
 				</p:dialog>
+			</h:form>
+
+			<h:form id="addActivity">
+				<c:set var="a" value="#{gestionnairec.createdActivity}" />
+				<c:if test="#{gestionnairec.creationActivity == false}">
+					<p:commandButton value="Ajouter une activité"
+						styleClass="ui-priority-primary" update="@form"
+						action="#{gestionnairec.onAddNewActivity()}" />
+				</c:if>
+				<c:if test="#{gestionnairec.creationActivity}">
+					<h:panelGrid id="grid" columns="5" cellpadding="5">
+						<p:outputLabel for="titre" value="Titre : " />
+						<p:outputLabel for="year" value="Year : " />
+						<p:outputLabel for="nature" value="Nature : " />
+						<p:outputLabel for="description" value="Description : " />
+						<p:outputLabel for="site" value="Site : " />
+
+
+						<p:inputText id="titre" value="#{a.title}" required="true"></p:inputText>
+						<p:inputText id="year" value="#{a.year}"></p:inputText>
+						<p:selectOneMenu id="nature" value="#{a.nature}"
+							style="width:125px">
+							<f:selectItems value="#{gestionnairec.natures}" />
+						</p:selectOneMenu>
+
+						<p:inputText id="description" value="#{a.description}"></p:inputText>
+						<p:inputText id="site" value="#{a.website}"></p:inputText>
+						
+						<p:message for="titre" />
+						<p:message for="year" />
+						<p:message for="nature" />
+						<p:message for="description" />
+						<p:message for="site" />
+
+					</h:panelGrid>
+					<p:commandButton value="Valider"
+						action="#{gestionnairec.createActivity()}"
+						update="addActivity form" oncomplete="PF('cv').addRow();">
+					</p:commandButton>
+					
+					<p:commandButton value="Annuler"
+						action="#{gestionnairec.cancelActivity()}"
+						update="addActivity">
+					</p:commandButton>
+				</c:if>
 			</h:form>
 		</div>
 

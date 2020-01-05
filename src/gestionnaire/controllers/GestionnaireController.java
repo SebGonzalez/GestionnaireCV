@@ -40,7 +40,9 @@ public class GestionnaireController implements IGestionnaireController {
 
 	Person p;
 
+	boolean creationActivity = false;
 	Activity selectedActivity;
+	Activity createdActivity;
 
 	private LazyDataModel<Person> lazyModel;
 
@@ -89,6 +91,7 @@ public class GestionnaireController implements IGestionnaireController {
 		// lazyModel = new LazyPersonDataModel(cm.getAllPersons());
 		lazyModel = new LazyPersonDataModel(cm, cm.getAllPersons().size());
 		this.login.setGestionnaire(this);
+		this.createdActivity = new Activity();
 	}
 
 	public LoginController getLogin() {
@@ -101,6 +104,18 @@ public class GestionnaireController implements IGestionnaireController {
 
 	public LazyDataModel<Person> getLazyModel() {
 		return lazyModel;
+	}
+	
+	public ActivityType[] getNatures() {
+		return ActivityType.values();
+	}
+
+	public boolean isCreationActivity() {
+		return creationActivity;
+	}
+
+	public void setCreationActivity(boolean creationActivity) {
+		this.creationActivity = creationActivity;
 	}
 
 	@Override
@@ -167,6 +182,7 @@ public class GestionnaireController implements IGestionnaireController {
 	}
 	
 	public void createPerson(Person p) {
+		System.out.println("Person : " + p);
 		this.lazyModel.setRowCount(this.lazyModel.getRowCount()+1);
 		this.savePerson(p);
 		this.showUser();
@@ -203,6 +219,29 @@ public class GestionnaireController implements IGestionnaireController {
                     data + " already exist;"));
     	}
     }
-	
-	
+    
+    public void onAddNewActivity() {
+    	createdActivity = new Activity();
+    	creationActivity = true;
+    }
+    
+    public void createActivity() {
+    	createdActivity.setOwner(p);
+    	saveActivity(createdActivity);
+    	p.getCv().addActivity(createdActivity);
+    	this.creationActivity = false;
+
+    }
+    
+    public void cancelActivity() {
+    	creationActivity = false;
+    }
+
+	public Activity getCreatedActivity() {
+		return createdActivity;
+	}
+
+	public void setCreatedActivity(Activity createdActivity) {
+		this.createdActivity = createdActivity;
+	}
 }

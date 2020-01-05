@@ -29,5 +29,9 @@ public class CV {
 	public void setActivities(List<Activity> activities) {
 		this.activities = activities;
 	}
+	
+	public void addActivity(Activity a) {
+		activities.add(a);
+	}
 
 }
