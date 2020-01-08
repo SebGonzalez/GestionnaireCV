@@ -24,26 +24,26 @@
 
 					<h:panelGrid id="grid" columns="3" cellpadding="5">
 						<p:outputLabel for="name" value="Name : " />
-						<p:inputText id="name" value="#{p.name}" required="true">
+						<p:inputText  class="une" id="name" value="#{p.name}" required="true">
 						</p:inputText>
 						<p:message for="name" />
 
 						<p:outputLabel for="firstname" value="FirstName : " />
-						<p:inputText id="firstname" value="#{p.firstName}" required="true">
+						<p:inputText class="une" id="firstname" value="#{p.firstName}" required="true">
 							<f:validateLength minimum="2" maximum="5" />
 							<p:clientValidator />
 						</p:inputText>
 						<p:message for="firstname" />
 
 						<p:outputLabel for="mail" value="Mail : " />
-						<p:inputText id="mail" value="#{p.mail}" required="true" validator="#{gestionnairec.checkMailExist}">
+						<p:inputText class="une" id="mail" value="#{p.mail}" required="true" validator="#{gestionnairec.checkMailExist}">
 							<f:validator for="mail" validatorId="myconstraints.Mail" />
 							 <f:ajax event="change" render="mmail" />
 						</p:inputText>
 						<p:message id="mmail" for="mail" />
 
 						<p:outputLabel for="site" value="Site : " />
-						<p:inputText id="site" value="#{p.site}" required="true"></p:inputText>
+						<p:inputText class="une" id="site" value="#{p.site}" required="true"></p:inputText>
 						<p:message for="site" />
 
 						<p:outputLabel for="birthDay" value="Date de naissance : " />
@@ -53,19 +53,19 @@
 						<p:message for="birthDay" />
 
 						<p:outputLabel for="password" value="Password : " />
-						<p:password id="password" value="#{p.password}" feedback="true"
+						<p:password class="une" id="password" value="#{p.password}" feedback="true"
 							required="true"  match="password2"/>
 						<p:message for="password" />
 
 						<p:outputLabel for="password2" value="Password 2 : " />
-						<p:password id="password2" value="#{p.password}" required="true" />
+						<p:password class="une" id="password2" value="#{p.password}" required="true" />
 						<p:message for="password2" />
 
 					</h:panelGrid>
 
 					<p:separator />
 
-					<p:commandButton action="#{gestionnairec.createPerson(p)}"
+					<p:commandButton class="submit" action="#{gestionnairec.createPerson(p)}"
 						value="Coopter" update="grid" />
 
 				</h:form>
