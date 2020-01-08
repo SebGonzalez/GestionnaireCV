@@ -20,6 +20,8 @@ import org.primefaces.PrimeFaces;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.model.LazyDataModel;
 
+import gestionnaire.controllers.IGestionnaireController;
+import gestionnaire.controllers.LoginController;
 import gestionnaire.entities.Activity;
 import gestionnaire.entities.ActivityType;
 import gestionnaire.entities.CV;
