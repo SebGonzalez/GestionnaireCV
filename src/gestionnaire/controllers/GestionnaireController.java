@@ -1,4 +1,4 @@
-package gestionnaire.controllers;
+package src.gestionnaire.controllers;
 
 import java.io.IOException;
 import java.util.Calendar;

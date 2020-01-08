@@ -9,29 +9,36 @@
 <ui:composition template="/template/mylayout.xhtml">
 	<ui:define name="content">
 		<f:view>
-			<h1>Liste des personnes (#{gestionnairec.getAllPersons().size()})</h1>
+			<div class="center">
+				<img src="univam.png" name="amu" style="height: 200px;" />
+			</div>
+			<h1 class="centerb">Liste des personnes</h1>
+			<h3 class="centerb">Nombre de personnes dans l'application
+				(#{gestionnairec.getAllPersons().size()})</h3>
 
 			<h:form id="form">
-				<p:dataTable var="person" value="#{gestionnairec.lazyModel}" lazy="true" rows="100" paginator="true"
+				<p:dataTable var="person" value="#{gestionnairec.lazyModel}"
+					lazy="true" rows="100" paginator="true"
 					rowsPerPageTemplate="50,100,200" rowStyleClass="success,warning"
 					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
 
-						<p:column headerText="Name">
+					<p:column headerText="Name" style="text-align:center;">
 						<h:outputText value="#{person.name}" />
-						</p:column>
+					</p:column>
 
-						<p:column headerText="FirstName">
+					<p:column headerText="FirstName" style="text-align:center;">
 						<h:outputText value="#{person.firstName}" />
-						</p:column>
+					</p:column>
 
-						<p:column headerText="Mail">
+					<p:column headerText="Mail" style="text-align:center;">
 						<h:outputText value="#{person.mail}" />
-						</p:column>
+					</p:column>
 
-						<p:column headerText="Action">
+					<p:column headerText="Action">
 						<p:commandLink value="Show" styleClass="btn btn-primary btn-xs"
-							action="#{gestionnairec.showPerson(person.id)}" />
-						</p:column>
+							action="#{gestionnairec.showPerson(person.id)}"
+							style="display:block; margin-left:20%; margin-right:20%;" />
+					</p:column>
 
 				</p:dataTable>
 

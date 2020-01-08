@@ -9,14 +9,20 @@
 
 <ui:composition template="/template/mylayout.xhtml">
 	<ui:define name="content">
-
-
+		<div class="center">
+			<img src="univam.png" name="amu" style="height: 200px;" />
+		</div>
 
 		<c:set var="p" value="#{gestionnairec.personne}" />
+
+		<div id="garde">
+			<p:button outcome="persons" value="Liste des personnes">
+			</p:button>
+		</div>
 		<div class="jumbotron">
 			<h:form id="infos">
 				<c:if test="#{login.getEdition() == false or p.id != login.user.id}">
-					<h2>Personne #{p.name} #{p.firstName}</h2>
+					<h2>Personne : #{p.name} #{p.firstName}</h2>
 					<p>Id: #{p.id}</p>
 					<p>Mail: #{p.mail}</p>
 					<p>Site web : #{p.site}</p>
@@ -29,29 +35,36 @@
 				</c:if>
 				<c:if test="#{login.getEdition() and p.id == login.user.id}">
 
-					<h2>Personne</h2>
-					<h:inputText id="name" value="#{p.name}"></h:inputText>
-					<h:inputText id="firstname" value="#{p.firstName}"></h:inputText>
+					<h:outputText value="Nom :" />
+					<h:inputText class="une" id="name" value="#{p.name}"></h:inputText>
+					<br></br>
+
+					<h:outputText value="Prénom :" />
+					<h:inputText class="une" id="firstname" value="#{p.firstName}"></h:inputText>
+					<br></br>
 					<br></br>
 					<h:outputText value="Mail :" />
-					<h:inputText id="mail" value="#{p.mail}"></h:inputText>
+					<h:inputText class="une" id="mail" value="#{p.mail}"></h:inputText>
 					<br></br>
 					<h:outputText value="Site web :" />
-					<h:inputText id="site" value="#{p.site}"></h:inputText>
+					<h:inputText class="une" id="site" value="#{p.site}"></h:inputText>
 					<br></br>
 					<h:outputText for="birthDay" value="Date de naissance : " />
-					<p:calendar id="birthDay" value="#{p.birthDay}" showOn="both"
-						navigator="true" pattern="dd/MM/yyyy" defaultHour="1" />
+					<p:calendar class="une" id="birthDay" value="#{p.birthDay}"
+						showOn="both" navigator="true" pattern="dd/MM/yyyy"
+						defaultHour="1" />
 					<br></br>
 
-					<p:commandButton value="Sauvegarder"
-						action="#{gestionnairec.savePerson(p)}" update="infos editButton">
-					</p:commandButton>
+					<div style="margin-top:5%; text-align:center; margin-left:-45%;">
+						<p:commandButton class="submit" value="Sauvegarder"
+							action="#{gestionnairec.savePerson(p)}" update="infos editButton">
+						</p:commandButton>
 
+					</div>
 				</c:if>
 
 			</h:form>
-			<h:form id="editButton">
+			<h:form id="editButton" class="center">
 				<c:if test="#{p.id == login.user.id and login.edition == false}">
 					<p>
 						<p:commandButton value="Editer les infos"
@@ -68,7 +81,7 @@
 			</h:form>
 		</div>
 
-		<div class="jumbotron">
+		<div class="jumbotron" id="infos">
 			<h2>CV</h2>
 			<h:form id="form">
 				<p:growl id="msgs" showDetail="true" />
@@ -79,7 +92,7 @@
 					<f:facet name="header">
 					Liste des activités
 					</f:facet>
-					<!-- 					<p:ajax event="rowSelect" -->
+					<!-- 					<p:ajax event="rowSelect" -->F
 					<!-- 						listener="#{gestionnairec.onActivitySelected}" -->
 					<!-- 						update=":form:activityDetail" /> -->
 					<p:ajax event="rowEdit" listener="#{gestionnairec.onRowEdit}"
@@ -145,10 +158,12 @@
 					<p:column style="width:32px" rendered="#{p.id == login.user.id}">
 						<p:rowEditor />
 					</p:column>
+
 					<f:facet name="footer">
 						<p:commandButton process="form" update=":form:activityDetail"
 							icon="pi pi-search" value="View"
-							oncomplete="PF('activityDialog').show()" />
+							oncomplete="PF('activityDialog').show()"
+							style="padding:.2em 1.1em .2em .0em;" />
 					</f:facet>
 				</p:dataTable>
 
@@ -207,7 +222,7 @@
 
 						<p:inputText id="description" value="#{a.description}"></p:inputText>
 						<p:inputText id="site" value="#{a.website}"></p:inputText>
-						
+
 						<p:message for="titre" />
 						<p:message for="year" />
 						<p:message for="nature" />
@@ -219,18 +234,12 @@
 						action="#{gestionnairec.createActivity()}"
 						update="addActivity form" oncomplete="PF('cv').addRow();">
 					</p:commandButton>
-					
+
 					<p:commandButton value="Annuler"
-						action="#{gestionnairec.cancelActivity()}"
-						update="addActivity">
+						action="#{gestionnairec.cancelActivity()}" update="addActivity">
 					</p:commandButton>
 				</c:if>
 			</h:form>
-		</div>
-
-		<div class="jumbotron">
-			<p:button outcome="persons" value="Liste des personnes">
-			</p:button>
 		</div>
 	</ui:define>
 </ui:composition>

@@ -9,34 +9,26 @@
 <ui:composition template="/template/mylayout.xhtml">
 	<ui:define name="content">
 		<f:view>
-			<div class="center">
-				<img src="univam.png" name="amu" style="height: 200px;" />
-			</div>
+			<h:form>
+				<h3>Connexion</h3>
+				<h:outputText value="E-mail" />
+				<h:inputText id="mail" value="#{login.mail}"></h:inputText>
+				<h:message for="mail"></h:message>
+				<br></br>
+				<br></br>
 
+				<h:outputText value="Password" />
+				<h:inputSecret id="password" value="#{login.pwd}">
+					<f:validateLength minimum="3" maximum="15" />
+					<f:ajax event="keyup" render="mpassword" />
+				</h:inputSecret>
+				<h:message id="mpassword" for="password"></h:message>
+				<br></br>
+				<br></br>
 
-
-			<p class="sign" align="center" style="margin-bottom:-5%;">Espace de connexion</p>
-			<div class="main">
-				<h:form class="form1">
-
-					<h:inputText class="un" id="mail" value="#{login.mail}"></h:inputText>
-					<h:message for="mail"></h:message>
-					<br></br>
-					<br></br>
-
-					<h:inputSecret class="pass" id="password" value="#{login.pwd}">
-						<f:validateLength minimum="3" maximum="15" />
-						<f:ajax event="keyup" render="mpassword" />
-					</h:inputSecret>
-					<h:message id="mpassword" for="password"></h:message>
-					<br></br>
-					<br></br>
-
-					<h:commandButton class="submit" action="#{login.connect}"
-						value="Login">
-					</h:commandButton>
-				</h:form>
-			</div>
+				<h:commandButton action="#{login.connect}" value="Login">
+				</h:commandButton>
+			</h:form>
 		</f:view>
 	</ui:define>
 </ui:composition>
