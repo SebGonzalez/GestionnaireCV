@@ -52,8 +52,8 @@ public class Person implements Serializable {
 	private String site;
 
 	@Basic(optional = false)
-	@Temporal(TemporalType.DATE)
 	@Column(name = "birth_day")
+	@Temporal(TemporalType.DATE)
 	private Date birthDay;
 
 	@Basic(optional = false)
