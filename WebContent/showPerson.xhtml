@@ -9,14 +9,20 @@
 
 <ui:composition template="/template/mylayout.xhtml">
 	<ui:define name="content">
-
-
+		<div class="center">
+			<img src="univam.png" name="amu" style="height: 200px;" />
+		</div>
 
 		<c:set var="p" value="#{gestionnairec.personne}" />
+
+		<div id="garde">
+			<p:button outcome="persons" value="Liste des personnes">
+			</p:button>
+		</div>
 		<div class="jumbotron">
 			<h:form id="infos">
 				<c:if test="#{login.getEdition() == false or p.id != login.user.id}">
-					<h2>Personne #{p.name} #{p.firstName}</h2>
+					<h2>Personne : #{p.name} #{p.firstName}</h2>
 					<p>Id: #{p.id}</p>
 					<p>Mail: #{p.mail}</p>
 					<p>Site web : #{p.site}</p>
@@ -28,30 +34,49 @@
 					</p>
 				</c:if>
 				<c:if test="#{login.getEdition() and p.id == login.user.id}">
+					<h:panelGrid id="grid" columns="3" cellpadding="5">
+						<p:outputLabel for="name" value="Nom :" />
+						<p:inputText class="une" id="name" value="#{p.name}"
+							required="true" />
+						<p:message for="name" />
 
-					<h2>Personne</h2>
-					<h:inputText id="name" value="#{p.name}"></h:inputText>
-					<h:inputText id="firstname" value="#{p.firstName}"></h:inputText>
-					<br></br>
-					<h:outputText value="Mail :" />
-					<h:inputText id="mail" value="#{p.mail}"></h:inputText>
-					<br></br>
-					<h:outputText value="Site web :" />
-					<h:inputText id="site" value="#{p.site}"></h:inputText>
-					<br></br>
-					<h:outputText for="birthDay" value="Date de naissance : " />
-					<p:calendar id="birthDay" value="#{p.birthDay}" showOn="both"
-						navigator="true" pattern="dd/MM/yyyy" defaultHour="1" />
+
+						<p:outputLabel for="firstname" value="Prénom :" />
+						<p:inputText class="une" id="firstname" value="#{p.firstName}"
+							required="true" />
+						<p:message for="firstname" />
+
+						<p:outputLabel for="mail" value="Mail :" />
+						<p:inputText class="une" id="mail" value="#{p.mail}"
+							required="true" />
+						<p:message for="mail" />
+
+						<p:outputLabel for="site" value="Site web :" />
+						<p:inputText class="une" id="site" value="#{p.site}"
+							required="true">
+							<f:validator for="site" validatorId="myconstraints.Website" />
+							<f:ajax event="keyup" render="msite" />
+						</p:inputText>
+						<p:message id="msite" for="site" />
+
+						<p:outputLabel for="birthDay" value="Date de naissance : " />
+						<p:calendar class="une" id="birthDay" value="#{p.birthDay}"
+							showOn="both" navigator="true" pattern="dd/MM/yyyy"
+							defaultHour="1" mindate="01/01/1950" maxdate="31/12/2020" yearRange="c-100:c+100"/>
+						<p:message for="birthDay" />
+					</h:panelGrid>
 					<br></br>
 
-					<p:commandButton value="Sauvegarder"
-						action="#{gestionnairec.savePerson(p)}" update="infos editButton">
-					</p:commandButton>
+					<div style="margin-top: 5%; text-align: center; margin-left: -45%;">
+						<p:commandButton class="submit" value="Sauvegarder"
+							action="#{gestionnairec.savePerson(p)}" update="infos editButton">
+						</p:commandButton>
 
+					</div>
 				</c:if>
 
 			</h:form>
-			<h:form id="editButton">
+			<h:form id="editButton" class="center">
 				<c:if test="#{p.id == login.user.id and login.edition == false}">
 					<p>
 						<p:commandButton value="Editer les infos"
@@ -68,14 +93,14 @@
 			</h:form>
 		</div>
 
-		<div class="jumbotron">
+		<div class="jumbotron" id="infos">
 			<h2>CV</h2>
 			<h:form id="form">
 				<p:growl id="msgs" showDetail="true" />
 
 				<p:dataTable value="#{p.cv.activities}" var="a" id="cv"
-					selectionMode="single" editable="true" style="margin-bottom:20px"
-					selection="#{gestionnairec.selectedActivity}" rowKey="#{a.id}">
+					editable="true" style="margin-bottom:20px"
+					selection="#{gestionnairec.selectedActivity}"  selectionMode="single" rowKey="#{a.id}">
 					<f:facet name="header">
 					Liste des activités
 					</f:facet>
@@ -145,10 +170,12 @@
 					<p:column style="width:32px" rendered="#{p.id == login.user.id}">
 						<p:rowEditor />
 					</p:column>
+
 					<f:facet name="footer">
 						<p:commandButton process="form" update=":form:activityDetail"
 							icon="pi pi-search" value="View"
-							oncomplete="PF('activityDialog').show()" />
+							oncomplete="PF('activityDialog').show()"
+							style="padding:.2em 1.1em .2em .0em;" />
 					</f:facet>
 				</p:dataTable>
 
@@ -199,38 +226,37 @@
 
 
 						<p:inputText id="titre" value="#{a.title}" required="true"></p:inputText>
-						<p:inputText id="year" value="#{a.year}"></p:inputText>
+						<h:inputText id="year" value="#{a.year}" required="true">
+<!-- 							<f:validateLongRange minimum="1950" maximum="2020" /> -->
+						</h:inputText>
 						<p:selectOneMenu id="nature" value="#{a.nature}"
-							style="width:125px">
+							style="width:125px" required="true">
 							<f:selectItems value="#{gestionnairec.natures}" />
 						</p:selectOneMenu>
 
 						<p:inputText id="description" value="#{a.description}"></p:inputText>
-						<p:inputText id="site" value="#{a.website}"></p:inputText>
-						
+						<p:inputText id="site" value="#{a.website}">
+							<f:validator for="site" validatorId="myconstraints.Website" />
+							<f:ajax event="keyup" render="msite" />
+						</p:inputText>
+
 						<p:message for="titre" />
 						<p:message for="year" />
 						<p:message for="nature" />
 						<p:message for="description" />
-						<p:message for="site" />
+						<p:message id="msite" for="site" />
 
 					</h:panelGrid>
 					<p:commandButton value="Valider"
 						action="#{gestionnairec.createActivity()}"
 						update="addActivity form" oncomplete="PF('cv').addRow();">
 					</p:commandButton>
-					
+
 					<p:commandButton value="Annuler"
-						action="#{gestionnairec.cancelActivity()}"
-						update="addActivity">
+						action="#{gestionnairec.cancelActivity()}" update="addActivity">
 					</p:commandButton>
 				</c:if>
 			</h:form>
-		</div>
-
-		<div class="jumbotron">
-			<p:button outcome="persons" value="Liste des personnes">
-			</p:button>
 		</div>
 	</ui:define>
 </ui:composition>

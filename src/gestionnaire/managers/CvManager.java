@@ -1,6 +1,7 @@
 package gestionnaire.managers;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -24,8 +25,55 @@ public class CvManager implements ICvManager {
 	}
 
 	@Override
-	public List<Person> getRangePersons(int first, int nbResult) {
-		return em.createQuery("Select p From Person p", Person.class).setFirstResult(first).setMaxResults(nbResult)
+	public List<Person> getRangePersons(int first, int nbResult, Map<String, Object> filters) {
+		
+		String query = "Select p From Person p";
+		
+		if (filters != null && !filters.isEmpty()) {
+			String where = "";
+			for (String name : filters.keySet()) {
+				String key = name.toString();
+				String value = filters.get(name).toString();
+				System.out.println(key + " OOO " + value);
+				where += key + " LIKE '%" + value + "%' AND ";
+			}
+			
+			where = where.substring(0, where.length() - 5);
+			
+			System.out.println(query + " Where " + where);
+			query +=  " Where " + where;
+		}
+		
+		return em.createQuery(query, Person.class).setFirstResult(first).setMaxResults(nbResult)
+				.getResultList();
+	}
+	
+	@Override
+	public List<Activity> getAllActivities() {
+		return em.createQuery("Select a From Activity a", Activity.class).getResultList();
+	}
+	
+	@Override
+	public List<Activity> getRangeActivities(int first, int nbResult, Map<String, Object> filters) {
+		
+		String query = "Select a From Activity a";
+		
+		if (filters != null && !filters.isEmpty()) {
+			String where = "";
+			for (String name : filters.keySet()) {
+				String key = name.toString();
+				String value = filters.get(name).toString();
+				System.out.println(key + " OOO " + value);
+				where += key + " LIKE '%" + value + "%' AND ";
+			}
+			
+			where = where.substring(0, where.length() - 5);
+			
+			System.out.println(query + " Where " + where);
+			query +=  " Where " + where;
+		}
+		
+		return em.createQuery(query, Activity.class).setFirstResult(first).setMaxResults(nbResult)
 				.getResultList();
 	}
 
@@ -35,20 +83,6 @@ public class CvManager implements ICvManager {
 				.setParameter("idPerson", idPerson).getSingleResult();
 		p.setCv(getActivitiesPerson(p));
 		return p;
-	}
-
-	@Override
-	public List<Activity> getAllActivities() {
-		return em.createQuery("Select a From Activity a", Activity.class).getResultList();
-	}
-
-	@Override
-	// non fonctionnel
-	public CV getActivitiesPerson(long idPerson) {
-		Query query = em.createQuery("Select a From Activity a Where owner = :idPerson", Activity.class)
-				.setParameter("idPerson", idPerson);
-		CV cv = new CV(query.getResultList());
-		return cv;
 	}
 
 	@Override
@@ -78,6 +112,16 @@ public class CvManager implements ICvManager {
 			em.persist(a);
 		else
 			em.merge(a);
+	}
+	
+	@Override
+	public void removePerson(Person p) {
+		em.remove(p);
+	}
+	
+	@Override
+	public void removeActivity(Activity a) {
+		em.remove(a);
 	}
 
 	@Override

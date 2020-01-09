@@ -7,7 +7,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<title><ui:insert name="title">My application</ui:insert></title>
+	<title><ui:insert name="title">Gestionnnaire de CV</ui:insert></title>
 	<script name="jquery/jquery.js" library="primefaces"></script>
 	<h:outputStylesheet library="css" name="style.css" />
 	<h:outputStylesheet library="webjars"
@@ -18,7 +18,7 @@
 </h:head>
 <h:body>
 
-	<div class="container">
+	<div class="container menu">
 
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 			<div class="container-fluid">
@@ -32,7 +32,7 @@
 					</button>
 					<a class="navbar-brand" href="/projet"> <ui:insert
 							name="header">
-							<span>My application</span>
+							<span>Gestionnaire de CV</span>
 						</ui:insert>
 					</a>
 				</div>
@@ -41,17 +41,16 @@
 				<div class="collapse navbar-collapse"
 					id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
-						<li><a href="#">Link</a></li>
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false">Dropdown <span class="caret"></span></a> <ui:include
-								src="/template/menu.xhtml" /></li>
+						<li><a href="/projet/persons.xhtml">Liste des personnes</a></li>
+						<li><a href="/projet/activities.xhtml">Liste des activités</a></li>
+						
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<c:if test="#{login.isConnected() == false}">
 							<li class="navbar-right"><a href="/projet/login.xhtml"><span
 									class="glyphicon glyphicon-log-in"></span> Login</a></li>
 						</c:if>
+						<h:form>
 						<c:if test="#{login.isConnected()}">
 							<li class="navbar-right"><p:commandLink value="Logout"
 									styleClass="btn btn-primary btn-xs" action="#{login.logout()}" />
@@ -60,6 +59,7 @@
 									styleClass="btn btn-primary btn-xs" action="#{gestionnairec.showUser()}" />
 							</li>
 						</c:if>
+						</h:form>
 					</ul>
 				</div>
 			</div>
@@ -73,7 +73,7 @@
 			<h:messages />
 		</div>
 
-		<footer class="page-footer">
+		<footer class="page-footer foot">
 			<div class="footer-copyright text-center py-3">
 				<ui:insert name="footer">
 					<span>(c) 2018</span>

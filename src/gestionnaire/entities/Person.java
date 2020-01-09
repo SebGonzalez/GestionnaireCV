@@ -48,7 +48,7 @@ public class Person implements Serializable {
 	private String mail;
 
 	@Basic()
-	@Column(name = "site", length = 200, nullable = true, unique = true)
+	@Column(name = "site", length = 200, nullable = true)
 	private String site;
 
 	@Basic(optional = false)

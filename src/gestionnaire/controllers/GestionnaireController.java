@@ -20,11 +20,8 @@ import org.primefaces.PrimeFaces;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.model.LazyDataModel;
 
-import gestionnaire.controllers.IGestionnaireController;
-import gestionnaire.controllers.LoginController;
 import gestionnaire.entities.Activity;
 import gestionnaire.entities.ActivityType;
-import gestionnaire.entities.CV;
 import gestionnaire.entities.Person;
 import gestionnaire.managers.ICvManager;
 
@@ -47,6 +44,7 @@ public class GestionnaireController implements IGestionnaireController {
 	Activity createdActivity;
 
 	private LazyDataModel<Person> lazyModel;
+	private LazyDataModel<Activity> lazyModelActivity;
 
 	@PostConstruct
 	public void initBd() {
@@ -92,10 +90,12 @@ public class GestionnaireController implements IGestionnaireController {
 
 		// lazyModel = new LazyPersonDataModel(cm.getAllPersons());
 		lazyModel = new LazyPersonDataModel(cm, cm.getAllPersons().size());
+		lazyModelActivity = new LazyActivityDataModel(cm, cm.getAllActivities().size());
 		this.login.setGestionnaire(this);
 		this.createdActivity = new Activity();
 	}
 
+	//getter setter
 	public LoginController getLogin() {
 		return login;
 	}
@@ -108,6 +108,10 @@ public class GestionnaireController implements IGestionnaireController {
 		return lazyModel;
 	}
 	
+	public LazyDataModel<Activity> getLazyModelActivity() {
+		return lazyModelActivity;
+	}
+
 	public ActivityType[] getNatures() {
 		return ActivityType.values();
 	}
@@ -119,6 +123,23 @@ public class GestionnaireController implements IGestionnaireController {
 	public void setCreationActivity(boolean creationActivity) {
 		this.creationActivity = creationActivity;
 	}
+	
+	public Activity getSelectedActivity() {
+		return selectedActivity;
+	}
+
+	public void setSelectedActivity(Activity selectedActivity) {
+		this.selectedActivity = selectedActivity;
+	}
+	
+	public Activity getCreatedActivity() {
+		return createdActivity;
+	}
+
+	public void setCreatedActivity(Activity createdActivity) {
+		this.createdActivity = createdActivity;
+	}
+	//fin getter setter
 
 	@Override
 	public void savePerson(Person p) {
@@ -146,11 +167,6 @@ public class GestionnaireController implements IGestionnaireController {
 	@Override
 	public List<Activity> getAllActivities() {
 		return cm.getAllActivities();
-	}
-
-	@Override
-	public CV getActivitiesPerson(long idPerson) {
-		return cm.getActivitiesPerson(idPerson);
 	}
 
 	@Override
@@ -190,14 +206,6 @@ public class GestionnaireController implements IGestionnaireController {
 		this.showUser();
 	}
 
-	public Activity getSelectedActivity() {
-		return selectedActivity;
-	}
-
-	public void setSelectedActivity(Activity selectedActivity) {
-		this.selectedActivity = selectedActivity;
-	}
-	
 	public void onActivitySelected() {
 		PrimeFaces current = PrimeFaces.current();
 		current.executeScript("PF('activityDialog').show();");
@@ -238,12 +246,4 @@ public class GestionnaireController implements IGestionnaireController {
     public void cancelActivity() {
     	creationActivity = false;
     }
-
-	public Activity getCreatedActivity() {
-		return createdActivity;
-	}
-
-	public void setCreatedActivity(Activity createdActivity) {
-		this.createdActivity = createdActivity;
-	}
 }

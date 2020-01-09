@@ -13,7 +13,6 @@ public interface IGestionnaireController {
 	public List<Person> getAllPersons();
 	public Person getPersonById(long idPerson);
 	public List<Activity> getAllActivities();
-	public CV getActivitiesPerson(long idPerson);
 	public Activity getActivityById(long idActivity);
 	public void showUser();
 }
