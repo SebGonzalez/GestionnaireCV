@@ -45,7 +45,7 @@ public class TestCvManager {
 			Calendar c1 = GregorianCalendar.getInstance();
 			c1.set(1997, Calendar.FEBRUARY, 25);
 
-			Person person = new Person("Lamblino", "Sébastien", "lamblino@hotmail.fr", "lamblino.fr", "azerty");
+			Person person = new Person("Lamblino", "Sï¿½bastien", "lamblino@hotmail.fr", "lamblino.fr", "azerty");
 			person.setBirthDay(c1.getTime());
 			cm.savePerson(person);
 
@@ -104,7 +104,7 @@ public class TestCvManager {
 
 	@Test
 	public void testGetPersonById() {
-		assertEquals(2, cm.getPersonById(2).getId());
+		assertEquals(Long.valueOf(2), cm.getPersonById(2).getId());
 	}
 
 	@Test
@@ -114,7 +114,7 @@ public class TestCvManager {
 
 	@Test
 	public void testGetActivityById() {
-		assertEquals(50, cm.getActivityById(50).getId());
+		assertEquals(Long.valueOf(50), cm.getActivityById(50).getId());
 
 	}
 
@@ -125,7 +125,7 @@ public class TestCvManager {
 		Calendar c1 = GregorianCalendar.getInstance();
 		c1.set(1997, Calendar.FEBRUARY, 25);
 
-		Person person = new Person("Lamblino", "Sébastien", "lamblino2@hotmail.fr", "lamblino.fr", "azerty");
+		Person person = new Person("Lamblino", "Sï¿½bastien", "lamblino2@hotmail.fr", "lamblino.fr", "azerty");
 		person.setBirthDay(c1.getTime());
 		cm.savePerson(person);
 
@@ -138,7 +138,7 @@ public class TestCvManager {
 	public void testSaveActivity() {
 		int expected = cm.getAllActivities().size() + 1;
 
-		Activity a = new Activity(2020, ActivityType.FORMATION, "LE TEST", "Cette activité a été faite pour les tests", "websitedutest.com", cm.getPersonById(1));
+		Activity a = new Activity(2020, ActivityType.FORMATION, "LE TEST", "Cette activitï¿½ a ï¿½tï¿½ faite pour les tests", "websitedutest.com", cm.getPersonById(1));
 		cm.saveActivity(a);
 
 		assertEquals(expected, cm.getAllActivities().size());
@@ -151,7 +151,7 @@ public class TestCvManager {
 		Calendar c1 = GregorianCalendar.getInstance();
 		c1.set(1997, Calendar.FEBRUARY, 25);
 
-		Person person = new Person("Lamblino", "Sébastien", "lamblino3@hotmail.fr", "lamblino.fr", "azerty");
+		Person person = new Person("Lamblino", "Sï¿½bastien", "lamblino3@hotmail.fr", "lamblino.fr", "azerty");
 		person.setBirthDay(c1.getTime());
 		cm.savePerson(person);
 

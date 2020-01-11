@@ -22,12 +22,12 @@
 		<div class="jumbotron">
 			<h:form id="infos">
 				<c:if test="#{login.getEdition() == false or p.id != login.user.id}">
-					<h2>Personne : #{p.name} #{p.firstName}</h2>
-					<p>Id: #{p.id}</p>
-					<p>Mail: #{p.mail}</p>
-					<p>Site web : #{p.site}</p>
+					<h2>#{messages.person} #{p.name} #{p.firstName}</h2>
+					<p>#{messages.id} #{p.id}</p>
+					<p>#{messages.mail} #{p.mail}</p>
+					<p>#{messages.website} #{p.site}</p>
 					<p>
-						Date de naissance :
+						#{messages.birthday}
 						<h:outputText value="#{p.birthDay}">
 							<f:convertDateTime pattern="dd/MM/yyyy" />
 						</h:outputText>
@@ -102,7 +102,7 @@
 					editable="true" style="margin-bottom:20px"
 					selection="#{gestionnairec.selectedActivity}"  selectionMode="single" rowKey="#{a.id}">
 					<f:facet name="header">
-					Liste des activités
+					#{messages.listeActivite}
 					</f:facet>
 					<!-- 					<p:ajax event="rowSelect" -->
 					<!-- 						listener="#{gestionnairec.onActivitySelected}" -->

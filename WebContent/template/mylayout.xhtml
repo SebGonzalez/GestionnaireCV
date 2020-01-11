@@ -7,7 +7,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<title><ui:insert name="title">Gestionnnaire de CV</ui:insert></title>
+	<title><ui:insert name="title">#{messages.gestCV}</ui:insert></title>
 	<script name="jquery/jquery.js" library="primefaces"></script>
 	<h:outputStylesheet library="css" name="style.css" />
 	<h:outputStylesheet library="webjars"
@@ -26,13 +26,13 @@
 					<button type="button" class="navbar-toggle collapsed"
 						data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
 						aria-expanded="false">
-						<span class="sr-only">Toggle navigation</span> <span
+						<span class="sr-only">#{messages.toggleNavigation}</span> <span
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
 					<a class="navbar-brand" href="/projet"> <ui:insert
 							name="header">
-							<span>Gestionnaire de CV</span>
+							<span>#{messages.gestCV}</span>
 						</ui:insert>
 					</a>
 				</div>
@@ -41,14 +41,14 @@
 				<div class="collapse navbar-collapse"
 					id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
-						<li><a href="/projet/persons.xhtml">Liste des personnes</a></li>
-						<li><a href="/projet/activities.xhtml">Liste des activités</a></li>
+						<li><a href="/projet/persons.xhtml">#{messages.listePersonne}</a></li>
+						<li><a href="/projet/activities.xhtml">#{messages.listeActivite}</a></li>
 						
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<c:if test="#{login.isConnected() == false}">
 							<li class="navbar-right"><a href="/projet/login.xhtml"><span
-									class="glyphicon glyphicon-log-in"></span> Login</a></li>
+									class="glyphicon glyphicon-log-in"></span> #{messages.login}</a></li>
 						</c:if>
 						<h:form>
 						<c:if test="#{login.isConnected()}">
@@ -68,7 +68,7 @@
 		<ui:debug />
 		<div>
 			<ui:insert name="content">
-				<p>CONTENT</p>
+				<p>#{messages.content}</p>
 			</ui:insert>
 			<h:messages />
 		</div>
@@ -76,7 +76,7 @@
 		<footer class="page-footer foot">
 			<div class="footer-copyright text-center py-3">
 				<ui:insert name="footer">
-					<span>(c) 2018</span>
+					<span>#{messages.c18}</span>
 				</ui:insert>
 			</div>
 		</footer>

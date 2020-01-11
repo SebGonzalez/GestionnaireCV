@@ -24,6 +24,7 @@ import gestionnaire.entities.Activity;
 import gestionnaire.entities.ActivityType;
 import gestionnaire.entities.Person;
 import gestionnaire.managers.ICvManager;
+import gestionnaire.util.LazyPersonDataModel;
 
 @ManagedBean(name = "gestionnairec")
 @SessionScoped
