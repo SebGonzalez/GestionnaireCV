@@ -188,4 +188,13 @@ public class CvManager implements ICvManager {
 		return true;
 	}
 
+	/**
+	 * Supprime une activité de la base de donnée
+	 * @param a l'activité à supprimer
+	 */
+	@Override
+	public void removeActivity(Activity a) {
+		em.remove(a);
+	}
+
 }

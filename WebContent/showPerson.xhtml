@@ -168,12 +168,18 @@
 						<p:rowEditor />
 					</p:column>
 
-					<p:column style="width:32px">
+					<p:column style="width:110px">
 						<p:commandButton update=":form:activityDetail"
-							oncomplete="PF('activityDialog').show()" icon="pi pi-search"
+							oncomplete="PF('activityDialog').show()" value="#{messages.show}"
 							title="View">
 							<f:setPropertyActionListener value="#{a}"
 								target="#{gestionnairec.selectedActivity}" />
+						</p:commandButton>
+					</p:column>
+					
+					<p:column style="width:110px" rendered="#{p.id == login.user.id}">
+						<p:commandButton update="infos"
+							value="Supprimer" action="#{gestionnairec.onRemoveActivity()}">
 						</p:commandButton>
 					</p:column>
 				</p:dataTable>

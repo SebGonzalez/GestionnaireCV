@@ -52,4 +52,8 @@ public class CV {
 		activities.add(a);
 	}
 
+	public void removeActivity(Activity a) {
+		activities.remove(a);
+	}
+
 }

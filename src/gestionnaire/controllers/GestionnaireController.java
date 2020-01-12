@@ -224,6 +224,11 @@ public class GestionnaireController implements IGestionnaireController {
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
     
+    public void onRemoveActivity(Activity a) {
+    	p.getCv().removeActivity(a);
+    	cm.removeActivity(a);
+    }
+    
     public void checkMailExist(FacesContext context, UIComponent component, Object data) throws ValidatorException {
     	if(cm.mailExistant((String)data)) {
     		throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Validation Error", 

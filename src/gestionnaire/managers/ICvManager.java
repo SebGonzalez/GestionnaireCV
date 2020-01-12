@@ -82,4 +82,10 @@ public interface ICvManager {
 	 * @return true si le mail existe false dans le cas contraire
 	 */
 	public boolean mailExistant(String mail);
+
+	/**
+	 * Supprime une activité de la base de donnée
+	 * @param a l'activité à supprimer
+	 */
+	public void removeActivity(Activity a);
 }
