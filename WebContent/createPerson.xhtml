@@ -23,41 +23,41 @@
 					</p:messages>
 
 					<h:panelGrid id="grid" columns="3" cellpadding="5">
-						<p:outputLabel for="name" value="Name : " />
+						<p:outputLabel for="name" value="#{messages.name} : " />
 						<p:inputText  class="une" id="name" value="#{p.name}" required="true">
 						</p:inputText>
 						<p:message for="name" />
 
-						<p:outputLabel for="firstname" value="FirstName : " />
+						<p:outputLabel for="firstname" value="#{messages.firstname} : " />
 						<p:inputText class="une" id="firstname" value="#{p.firstName}" required="true">
 							<f:validateLength minimum="2" maximum="5" />
 							<p:clientValidator />
 						</p:inputText>
 						<p:message for="firstname" />
 
-						<p:outputLabel for="mail" value="Mail : " />
+						<p:outputLabel for="mail" value="#{messages.mail} : " />
 						<p:inputText class="une" id="mail" value="#{p.mail}" required="true" validator="#{gestionnairec.checkMailExist}">
 							<f:validator for="mail" validatorId="myconstraints.Mail" />
 							 <f:ajax event="change" render="mmail" />
 						</p:inputText>
 						<p:message id="mmail" for="mail" />
 
-						<p:outputLabel for="site" value="Site : " />
+						<p:outputLabel for="site" value="#{messages.website} " />
 						<p:inputText class="une" id="site" value="#{p.site}" required="true"></p:inputText>
 						<p:message for="site" />
 
-						<p:outputLabel for="birthDay" value="Date de naissance : " />
+						<p:outputLabel for="birthDay" value="#{messages.birthday} " />
 						<p:calendar id="birthDay" value="#{p.birthDay}" showOn="both"
 							navigator="true" pattern="dd/MM/yyyy" yearRange="c-100:c+100"
 							required="true" />
 						<p:message for="birthDay" />
 
-						<p:outputLabel for="password" value="Password : " />
+						<p:outputLabel for="password" value="#{messages.motDePasse} : " />
 						<p:password class="une" id="password" value="#{p.password}" feedback="true"
 							required="true"  match="password2"/>
 						<p:message for="password" />
 
-						<p:outputLabel for="password2" value="Password 2 : " />
+						<p:outputLabel for="password2" value="#{messages.motDePasse2} : " />
 						<p:password class="une" id="password2" value="#{p.password}" required="true" />
 						<p:message for="password2" />
 
@@ -66,7 +66,7 @@
 					<p:separator />
 
 					<p:commandButton class="submit" action="#{gestionnairec.createPerson(p)}"
-						value="Coopter" update="grid" />
+						value="#{messages.valider} " update="grid" />
 
 				</h:form>
 			</div>

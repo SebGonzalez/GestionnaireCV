@@ -15,25 +15,38 @@ import javax.servlet.http.HttpSession;
 
 import gestionnaire.controllers.GestionnaireController;
 
+/**
+ * Classe permettant de filtrer l'accès aux pages de l'application. Utilisé pour
+ * la page de cooptation d'une personne (createPerson.xhtml), si l'utilisateur
+ * n'est pas connecter il est redirigé vers la page de connexion
+ *
+ */
 @WebFilter(filterName = "AuthFilter", urlPatterns = { "*.xhtml" })
 public class AuthorizationFilter implements Filter {
 
 	public AuthorizationFilter() {
 	}
 
+	/**
+	 * Méthode init non utilisé
+	 */
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		
+
 	}
 
+	/**
+	 * Filtre l'accès aux pages de l'application
+	 */
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		
+
 		try {
-			GestionnaireController gc = (GestionnaireController) ((HttpServletRequest) request).getSession().getAttribute("gestionnairec");
-			//System.out.println("CONNECTE : " + gc.getLogin().isConnected());
-			
+			GestionnaireController gc = (GestionnaireController) ((HttpServletRequest) request).getSession()
+					.getAttribute("gestionnairec");
+			// System.out.println("CONNECTE : " + gc.getLogin().isConnected());
+
 			HttpServletRequest reqt = (HttpServletRequest) request;
 			HttpServletResponse resp = (HttpServletResponse) response;
 			HttpSession ses = reqt.getSession(false);
@@ -55,6 +68,9 @@ public class AuthorizationFilter implements Filter {
 		}
 	}
 
+	/**
+	 * Méthode destroy non utilisé
+	 */
 	@Override
 	public void destroy() {
 

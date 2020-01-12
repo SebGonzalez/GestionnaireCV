@@ -21,8 +21,9 @@ import javax.persistence.Transient;
 
 
 /**
- * Java bean représentant l'instance d'une personne
- * Une personne est représentée par son id, nom, prénom, mail, site, date de naissance, mot de passe et son cv.
+ * Java bean représentant l'instance d'une personne Une personne est représentée
+ * par son id, nom, prénom, mail, site, date de naissance, mot de passe et son
+ * cv.
  * 
  *
  */
@@ -192,14 +193,24 @@ public class Person implements Serializable {
 		this.password = password;
 	}
 
+	/**
+	 * @return le cv de la personne
+	 */
 	public CV getCv() {
 		return cv;
 	}
 
+	/**
+	 * Setter modifiant le CV de la personne
+	 * @param cv, le cv de la personne
+	 */
 	public void setCv(CV cv) {
 		this.cv = cv;
 	}
 	
+	/**
+	 * Méthode toString
+	 */
 	@Override
 	public String toString() {
 		return id + " " + name + " " + firstName + " " + mail + " " + site + " " + password + " " + birthDay;

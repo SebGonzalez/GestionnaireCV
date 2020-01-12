@@ -20,22 +20,22 @@
 					rowStyleClass="success,warning"
 					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
 
-					<p:column headerText="Titre" style="text-align:center;"
+					<p:column headerText="#{messages.titre}" style="text-align:center;"
 						filterBy="#{activity.title}">
 						<h:outputText value="#{activity.title}" />
 					</p:column>
 
-					<p:column headerText="Année" style="text-align:center;"
+					<p:column headerText="#{messages.annee}" style="text-align:center;"
 						filterBy="#{activity.year}">
 						<h:outputText value="#{activity.year}" />
 					</p:column>
 
-					<p:column headerText="Nature" style="text-align:center;"
+					<p:column headerText="#{messages.nature}" style="text-align:center;"
 						filterMatchMode="exact" filterBy="#{activity.nature}">
 						<f:facet name="filter">
 							<p:selectOneMenu onchange="PF('activityTable').filter()"
 								styleClass="custom-filter">
-								<f:selectItem itemLabel="Select One" itemValue="#{null}"
+								<f:selectItem itemLabel="#{messages.select}" itemValue="#{null}"
 									noSelectionOption="true" />
 								<f:selectItems value="#{gestionnairec.natures}" />
 							</p:selectOneMenu>
@@ -43,8 +43,8 @@
 						<h:outputText value="#{activity.nature}" />
 					</p:column>
 
-					<p:column headerText="Action">
-						<p:commandLink value="Show" styleClass="btn btn-primary btn-xs"
+					<p:column headerText="#{messages.action}">
+						<p:commandLink value="#{messages.show}" styleClass="btn btn-primary btn-xs"
 							action="#{gestionnairec.showPerson(activity.owner.id)}"
 							style="display:block; margin-left:20%; margin-right:20%;" />
 					</p:column>

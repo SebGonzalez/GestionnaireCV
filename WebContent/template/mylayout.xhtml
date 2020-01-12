@@ -53,10 +53,11 @@
 						<h:form>
 						<c:if test="#{login.isConnected()}">
 							<li class="navbar-right"><p:commandLink value="Logout"
-									styleClass="btn btn-primary btn-xs" action="#{login.logout()}" />
+									styleClass="btn btn-primary btn-xs" action="#{login.logout()}" 
+									style="padding:1.3em;margin-left:0.5em;" />
 							</li>
 							<li class="navbar-right"><p:commandLink value="Profil"
-									styleClass="btn btn-primary btn-xs" action="#{gestionnairec.showUser()}" />
+									styleClass="btn btn-primary btn-xs" action="#{gestionnairec.showUser()}" style="padding:1.3em;" />
 							</li>
 						</c:if>
 						</h:form>

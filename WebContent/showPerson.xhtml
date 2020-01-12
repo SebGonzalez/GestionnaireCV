@@ -16,11 +16,11 @@
 		<c:set var="p" value="#{gestionnairec.personne}" />
 
 		<div id="garde">
-			<p:button outcome="persons" value="Liste des personnes">
+			<p:button outcome="persons" value="#{messages.liste} ">
 			</p:button>
 		</div>
 		<div class="jumbotron">
-			<h:form id="infos">
+			<h:form id="infos" class="test">
 				<c:if test="#{login.getEdition() == false or p.id != login.user.id}">
 					<h2>#{messages.person} #{p.name} #{p.firstName}</h2>
 					<p>#{messages.id} #{p.id}</p>
@@ -35,23 +35,23 @@
 				</c:if>
 				<c:if test="#{login.getEdition() and p.id == login.user.id}">
 					<h:panelGrid id="grid" columns="3" cellpadding="5">
-						<p:outputLabel for="name" value="Nom :" />
+						<p:outputLabel for="name" value="#{messages.name} :" />
 						<p:inputText class="une" id="name" value="#{p.name}"
 							required="true" />
 						<p:message for="name" />
 
 
-						<p:outputLabel for="firstname" value="Prénom :" />
+						<p:outputLabel for="firstname" value="#{messages.firstname} :" />
 						<p:inputText class="une" id="firstname" value="#{p.firstName}"
 							required="true" />
 						<p:message for="firstname" />
 
-						<p:outputLabel for="mail" value="Mail :" />
+						<p:outputLabel for="mail" value="#{messages.mail} " />
 						<p:inputText class="une" id="mail" value="#{p.mail}"
 							required="true" />
 						<p:message for="mail" />
 
-						<p:outputLabel for="site" value="Site web :" />
+						<p:outputLabel for="site" value="#{messages.website}" />
 						<p:inputText class="une" id="site" value="#{p.site}"
 							required="true">
 							<f:validator for="site" validatorId="myconstraints.Website" />
@@ -59,16 +59,17 @@
 						</p:inputText>
 						<p:message id="msite" for="site" />
 
-						<p:outputLabel for="birthDay" value="Date de naissance : " />
+						<p:outputLabel for="birthDay" value="#{messages.birthday} " />
 						<p:calendar class="une" id="birthDay" value="#{p.birthDay}"
 							showOn="both" navigator="true" pattern="dd/MM/yyyy"
-							defaultHour="1" mindate="01/01/1950" maxdate="31/12/2020" yearRange="c-100:c+100"/>
+							defaultHour="1" mindate="01/01/1950" maxdate="31/12/2020"
+							yearRange="c-100:c+100" />
 						<p:message for="birthDay" />
 					</h:panelGrid>
 					<br></br>
 
 					<div style="margin-top: 5%; text-align: center; margin-left: -45%;">
-						<p:commandButton class="submit" value="Sauvegarder"
+						<p:commandButton class="submit" value="#{messages.valider} :"
 							action="#{gestionnairec.savePerson(p)}" update="infos editButton">
 						</p:commandButton>
 
@@ -79,12 +80,12 @@
 			<h:form id="editButton" class="center">
 				<c:if test="#{p.id == login.user.id and login.edition == false}">
 					<p>
-						<p:commandButton value="Editer les infos"
+						<p:commandButton value="#{messages.editer}"
 							action="#{login.changeEdition}" update="infos editButton">
 
 						</p:commandButton>
 
-						<p:commandButton value="Cooptation"
+						<p:commandButton value="#{messages.cooptation}"
 							action="#{gestionnairec.createPerson()}"
 							update="infos editButton">
 						</p:commandButton>
@@ -99,19 +100,15 @@
 				<p:growl id="msgs" showDetail="true" />
 
 				<p:dataTable value="#{p.cv.activities}" var="a" id="cv"
-					editable="true" style="margin-bottom:20px"
-					selection="#{gestionnairec.selectedActivity}"  selectionMode="single" rowKey="#{a.id}">
+					editable="true" style="margin-bottom:20px">
 					<f:facet name="header">
 					#{messages.listeActivite}
 					</f:facet>
-					<!-- 					<p:ajax event="rowSelect" -->
-					<!-- 						listener="#{gestionnairec.onActivitySelected}" -->
-					<!-- 						update=":form:activityDetail" /> -->
 					<p:ajax event="rowEdit" listener="#{gestionnairec.onRowEdit}"
 						update=":form:msgs" />
 					<p:ajax event="rowEditCancel"
 						listener="#{gestionnairec.onRowCancel}" update=":form:msgs" />
-					<p:column headerText="Titre">
+					<p:column headerText="#{messages.titre}">
 						<p:cellEditor>
 							<f:facet name="output">
 								<h:outputText value="#{a.title}" />
@@ -122,7 +119,7 @@
 							</f:facet>
 						</p:cellEditor>
 					</p:column>
-					<p:column headerText="Année">
+					<p:column headerText="#{messages.annee}">
 						<p:cellEditor>
 							<f:facet name="output">
 								<h:outputText value="#{a.year}" />
@@ -132,7 +129,7 @@
 							</f:facet>
 						</p:cellEditor>
 					</p:column>
-					<p:column headerText="Nature">
+					<p:column headerText="#{messages.nature}">
 						<p:cellEditor>
 							<f:facet name="output">
 								<h:outputText value="#{a.nature}" />
@@ -145,7 +142,7 @@
 							</f:facet>
 						</p:cellEditor>
 					</p:column>
-					<p:column headerText="Description">
+					<p:column headerText="#{messages.description}">
 						<p:cellEditor>
 							<f:facet name="output">
 								<h:outputText value="#{a.description}" />
@@ -155,7 +152,7 @@
 							</f:facet>
 						</p:cellEditor>
 					</p:column>
-					<p:column headerText="Site">
+					<p:column headerText="#{messages.website}">
 						<p:cellEditor>
 							<f:facet name="output">
 								<h:outputText value="#{a.website}" />
@@ -171,36 +168,39 @@
 						<p:rowEditor />
 					</p:column>
 
-					<f:facet name="footer">
-						<p:commandButton process="form" update=":form:activityDetail"
-							icon="pi pi-search" value="View"
-							oncomplete="PF('activityDialog').show()"
-							style="padding:.2em 1.1em .2em .0em;" />
-					</f:facet>
+					<p:column style="width:32px">
+						<p:commandButton update=":form:activityDetail"
+							oncomplete="PF('activityDialog').show()" icon="pi pi-search"
+							title="View">
+							<f:setPropertyActionListener value="#{a}"
+								target="#{gestionnairec.selectedActivity}" />
+						</p:commandButton>
+					</p:column>
 				</p:dataTable>
 
-				<p:dialog header="Infomation activité" widgetVar="activityDialog"
+				<p:dialog header="#{messages.activite}" widgetVar="activityDialog"
 					modal="true" showEffect="fade" hideEffect="fade" resizable="false">
 					<p:outputPanel id="activityDetail" style="text-align:center;">
 
 						<p:panelGrid columns="2" columnClasses="label,value">
-							<h:outputText value="Titre :" />
+							<h:outputText value="#{messages.titre}" style="color:black;" />
 							<h:outputText value="#{gestionnairec.selectedActivity.title}" />
 
-							<h:outputText value="Année :" />
+							<h:outputText value="#{messages.annee}" style="color:black;" />
 							<h:outputText value="#{gestionnairec.selectedActivity.year}" />
 
-							<h:outputText value="Nature :" />
+							<h:outputText value="#{messages.nature}" style="color:black;" />
 							<h:outputText value="#{gestionnairec.selectedActivity.nature}" />
 
-							<h:outputText value="Description :" />
+							<h:outputText value="#{messages.description}"
+								style="color:black;" />
 							<h:outputText
 								value="#{gestionnairec.selectedActivity.description}" />
 
-							<h:outputText value="Site web :" />
+							<h:outputText value="#{messages.website}" style="color:black;" />
 							<h:outputText value="#{gestionnairec.selectedActivity.website}" />
 
-							<h:outputText value="Personne :" />
+							<h:outputText value="#{messages.person}" style="color:black;" />
 							<h:outputText
 								value="#{gestionnairec.selectedActivity.owner.name}" />
 						</p:panelGrid>
@@ -212,22 +212,23 @@
 			<h:form id="addActivity">
 				<c:set var="a" value="#{gestionnairec.createdActivity}" />
 				<c:if test="#{gestionnairec.creationActivity == false}">
-					<p:commandButton value="Ajouter une activité"
+					<p:commandButton value="#{messages.ajout}"
 						styleClass="ui-priority-primary" update="@form"
 						action="#{gestionnairec.onAddNewActivity()}" />
 				</c:if>
 				<c:if test="#{gestionnairec.creationActivity}">
 					<h:panelGrid id="grid" columns="5" cellpadding="5">
-						<p:outputLabel for="titre" value="Titre : " />
-						<p:outputLabel for="year" value="Year : " />
-						<p:outputLabel for="nature" value="Nature : " />
-						<p:outputLabel for="description" value="Description : " />
-						<p:outputLabel for="site" value="Site : " />
+						<p:outputLabel for="titre" value="#{messages.titre} : " />
+						<p:outputLabel for="year" value="#{messages.annee} : " />
+						<p:outputLabel for="nature" value="#{messages.nature} : " />
+						<p:outputLabel for="description"
+							value="#{messages.description} : " />
+						<p:outputLabel for="site" value="#{messages.ajout} : " />
 
 
 						<p:inputText id="titre" value="#{a.title}" required="true"></p:inputText>
 						<h:inputText id="year" value="#{a.year}" required="true">
-<!-- 							<f:validateLongRange minimum="1950" maximum="2020" /> -->
+							<!-- 							<f:validateLongRange minimum="1950" maximum="2020" /> -->
 						</h:inputText>
 						<p:selectOneMenu id="nature" value="#{a.nature}"
 							style="width:125px" required="true">
@@ -247,12 +248,12 @@
 						<p:message id="msite" for="site" />
 
 					</h:panelGrid>
-					<p:commandButton value="Valider"
+					<p:commandButton value="#{messages.valider}"
 						action="#{gestionnairec.createActivity()}"
 						update="addActivity form" oncomplete="PF('cv').addRow();">
 					</p:commandButton>
 
-					<p:commandButton value="Annuler"
+					<p:commandButton value="#{messages.annuler}"
 						action="#{gestionnairec.cancelActivity()}" update="addActivity">
 					</p:commandButton>
 				</c:if>
